@@ -1,0 +1,3 @@
+C:/Users/nikya/OneDrive/Рабочий стол/Home/RedBlackTree/build/CMakeFiles/RedBlackTree.dir
+C:/Users/nikya/OneDrive/Рабочий стол/Home/RedBlackTree/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/nikya/OneDrive/Рабочий стол/Home/RedBlackTree/build/CMakeFiles/ZERO_CHECK.dir
