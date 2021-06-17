@@ -1,0 +1,10 @@
+^C:\USERS\NIKYA\ONEDRIVE\РАБОЧИЙ СТОЛ\HOME\REDBLACKTREE\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/nikya/OneDrive/Рабочий стол/Home/RedBlackTree" "-BC:/Users/nikya/OneDrive/Рабочий стол/Home/RedBlackTree/build" --check-stamp-file "C:/Users/nikya/OneDrive/Рабочий стол/Home/RedBlackTree/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

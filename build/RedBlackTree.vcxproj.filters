@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\nikya\OneDrive\Рабочий стол\Home\RedBlackTree\test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\nikya\OneDrive\Рабочий стол\Home\RedBlackTree\r_b_tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\nikya\OneDrive\Рабочий стол\Home\RedBlackTree\RedBlackTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\nikya\OneDrive\Рабочий стол\Home\RedBlackTree\r_b_tree.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\nikya\OneDrive\Рабочий стол\Home\RedBlackTree\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{AD2D1508-80E7-3D38-BB74-E398BBDEE900}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1B47645F-ACA5-3421-A3B1-241C3E242801}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
