@@ -4,22 +4,20 @@
 TEST_CASE("Something works") { REQUIRE(3 == 3); }
 
 */
-
 #include "r_b_tree.hpp"
 #include <chrono>
 #include <doctest.h>
 #include <numeric>
+#include <random>
 #include <vector>
 
+/**
+  Возвращает минимальную черную высоту данной вершины(эта высота должна быть
+  равной максимальной)
 
-int get_black_h_min(tree_node *center_node) {
-  /**
-  Возвращает минимальную черную высоту данной вершины(должна быть равной
-  максимальной)
-
-  Ключевые аргументы:
-  center_node -- указатель на данную вершину
+  \param center_node -- указатель на данную вершину
   */
+int get_black_h_min(tree_node *center_node) {
 
   if (center_node == nullptr)
     return 0;
@@ -34,15 +32,13 @@ int get_black_h_min(tree_node *center_node) {
 
   return center_node->black + static_cast<int>(fmin(left, right));
 }
+/**
+  Возвращает максимальную черную высоту данной вершины(эта высота должна быть
+  равной минимальной)
 
-int get_black_h_max(tree_node *center_node) {
-  /**
-  Возвращает максимальную черную высоту данной вершины(должна быть равной
-  минимальной)
-
-  Ключевые аргументы:
-  center_node -- указатель на данную вершину
+  \param center_node -- указатель на данную вершину
   */
+int get_black_h_max(tree_node *center_node) {
 
   if (center_node == nullptr)
     return 0;
@@ -59,13 +55,12 @@ int get_black_h_max(tree_node *center_node) {
   return center_node->black + static_cast<int>(fmax(left, right));
 }
 
-bool red_under_black(tree_node *center_node) {
-  /**
+/**
   Возвращает false, если данная вершина красная и она имеет красных потомков
 
-  Ключевые аргументы:
-  center_node -- указатель на данную вершину
+  \param center_node -- указатель на данную вершину
   */
+bool red_under_black(tree_node *center_node) {
 
   if (center_node == nullptr) {
     return true;
@@ -275,6 +270,62 @@ TEST_CASE("insert and remove a lot of values in ascending order") {
   REQUIRE(red_under_black(t.root.get()));
   for (int i = 0; i < max_delete_value; i++) {
     t.remove(i);
+  }
+  check_tree(*t.root);
+  REQUIRE(get_black_h_max(t.root.get()) == get_black_h_min(t.root.get()));
+  REQUIRE(red_under_black(t.root.get()));
+}
+
+int cout_of_random = 1000;
+TEST_CASE("insert and remove a lot of random values") {
+  tree t;
+  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+  std::default_random_engine generator(seed);
+  std::uniform_int_distribution<int> distribution(0, cout_of_random + 10);
+
+  int deleted_count = static_cast<int>(cout_of_random * 0.9);
+
+  std::vector<int> values;
+  int next_value = 0;
+  int not_correct = true;
+  for (size_t i = 0; i < cout_of_random; i++) {
+    do {
+      next_value = distribution(generator);
+      not_correct = false;
+      for (size_t j = 0; j < values.size(); j++)
+        if (next_value == values[j])
+          not_correct = true;
+
+    } while (not_correct);
+    values.push_back(next_value);
+  }
+
+  std::vector<int> deleted_values;
+
+  for (size_t i = 0; i < deleted_count; i++) {
+    do {
+      next_value = distribution(generator);
+      not_correct = true;
+      for (size_t j = 0; j < values.size(); j++)
+        if (next_value == values[j])
+          not_correct = false;
+
+      for (size_t j = 0; j < deleted_values.size(); j++)
+        if (next_value == deleted_values[j])
+          not_correct = true;
+    } while (not_correct);
+
+    deleted_values.push_back(next_value);
+  }
+
+  for (int i = 0; i < values.size(); i++) {
+    t.insert(values[i]);
+  }
+  check_tree(*t.root);
+  REQUIRE(get_black_h_max(t.root.get()) == get_black_h_min(t.root.get()));
+  REQUIRE(red_under_black(t.root.get()));
+  for (int i = 0; i < deleted_values.size(); i++) {
+    t.remove(deleted_values[i]);
   }
   check_tree(*t.root);
   REQUIRE(get_black_h_max(t.root.get()) == get_black_h_min(t.root.get()));
